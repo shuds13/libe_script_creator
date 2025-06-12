@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>libEnsemble Script Generator</title>
+</head>
+<body>
+  <h2>Generate libEnsemble Run Scripts</h2>
+  <form method="post">
+
+    <fieldset>
+        <legend><strong>Application Reference</strong></legend>
+        Application Reference Name (a string with no spaces – e.g., warpx):<br>
+        <input name="app_ref" type="text" required><br>
+    </fieldset>
+      
+    <br>
+
+    <fieldset>
+        <legend><strong>Manager Settings</strong></legend>
+        Number of Workers: <input name="num_workers" type="number" required><br>
+        MPI App Full Path: <input name="sim_app" type="text" required><br>
+        Input Filename (e.g. forces_input): <input name="input_file" type="text" required><br>
+    </fieldset>
+  
+    <br>
+  
+    <fieldset>
+      <legend><strong>Worker (simulation) Settings</strong></legend>
+      Number of Nodes: <input name="nodes" type="number" required><br>
+      Number of Procs: <input name="procs" type="number" required><br>
+    </fieldset>
+  
+    <br>
+    <input type="submit" value="Generate Scripts">
+  </form>
+
+  {% if script %}
+  <h3>Generated run_libe.py:</h3>
+  {% if download_link %}
+    <p><a href="{{ download_link }}" download>Download run_libe.py</a></p>
+  {% endif %}
+  <details>
+    <summary>Show Script</summary>
+    <pre>{{ script }}</pre>
+  </details>
+{% endif %}
+
+{% if simf_script %}
+  <h3>Generated forces_simf.py:</h3>
+  {% if simf_link %}
+    <p><a href="{{ simf_link }}" download>Download forces_simf.py</a></p>
+  {% endif %}
+  <details>
+    <summary>Show Script</summary>
+    <pre>{{ simf_script }}</pre>
+  </details>
+{% endif %}
+</body>
+</html>
