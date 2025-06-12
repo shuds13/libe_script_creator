@@ -23,14 +23,6 @@
     </fieldset>
   
     <br>
-  
-    <fieldset>
-      <legend><strong>Worker (simulation) Settings</strong></legend>
-      Number of Nodes: <input name="nodes" type="number" required value="{{ request.form.nodes }}"><br>
-      Number of Procs: <input name="procs" type="number" required value="{{ request.form.procs }}"><br>
-    </fieldset>
-
-    <br>
 
     <fieldset>
       <legend><strong>Generator Selection</strong></legend>
@@ -38,6 +30,14 @@
       <select name="gen_module" id="gen_module" data-selected="{{ request.form.gen_module }}"></select><br>
       Generator Function:
       <select name="gen_function" id="gen_function" data-selected="{{ request.form.gen_function }}"></select><br>
+    </fieldset>
+
+    <br>
+  
+    <fieldset>
+      <legend><strong>Worker (simulation) Settings</strong></legend>
+      Number of Nodes: <input name="nodes" type="number" required value="{{ request.form.nodes }}"><br>
+      Number of Procs: <input name="procs" type="number" required value="{{ request.form.procs }}"><br>
     </fieldset>
 
     <br>
