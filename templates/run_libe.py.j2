@@ -8,7 +8,7 @@ from simf import run_app
 from libensemble import Ensemble
 from libensemble.alloc_funcs.start_only_persistent import only_persistent_gens as alloc_f
 from libensemble.executors import MPIExecutor
-from libensemble.gen_funcs.persistent_sampling import persistent_uniform as gen_f
+from libensemble.gen_funcs.{{ gen_module }} import {{ gen_function }} as gen_f
 from libensemble.specs import AllocSpecs, ExitCriteria, GenSpecs, LibeSpecs, SimSpecs
 
 if __name__ == "__main__":

@@ -1,0 +1,49 @@
+{
+  "uniform_or_localopt": [
+    "uniform_or_localopt"
+  ],
+  "persistent_gpCAM": [
+    "persistent_gpCAM",
+    "persistent_gpCAM_covar"
+  ],
+  "persistent_sampling_var_resources": [
+    "uniform_sample",
+    "uniform_sample_with_var_gpus",
+    "uniform_sample_with_procs_gpus",
+    "uniform_sample_with_var_priorities",
+    "uniform_sample_diff_simulations",
+    "uniform_sample_with_sim_gen_resources"
+  ],
+  "persistent_inverse_bayes": [
+    "persistent_updater_after_likelihood"
+  ],
+  "persistent_ax_multitask": [
+    "persistent_gp_mt_ax_gen_f"
+  ],
+  "persistent_aposmm": [
+    "aposmm"
+  ],
+  "sampling": [
+    "uniform_random_sample",
+    "uniform_random_sample_with_variable_resources",
+    "uniform_random_sample_with_var_priorities_and_resources",
+    "uniform_random_sample_obj_components",
+    "latin_hypercube_sample",
+    "uniform_random_sample_cancel"
+  ],
+  "persistent_sampling": [
+    "persistent_uniform",
+    "persistent_uniform_final_update",
+    "persistent_request_shutdown",
+    "uniform_nonblocking",
+    "batched_history_matching",
+    "persistent_uniform_with_cancellations"
+  ],
+  "persistent_tasmanian": [
+    "sparse_grid_batched",
+    "sparse_grid_async"
+  ],
+  "persistent_surmise_calib": [
+    "surmise_calib"
+  ]
+}

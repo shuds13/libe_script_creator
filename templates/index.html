@@ -21,7 +21,17 @@
         MPI App Full Path: <input name="sim_app" type="text" required><br>
         Input Filename (e.g. forces_input): <input name="input_file" type="text" required><br>
     </fieldset>
-  
+
+    <br>
+
+    <fieldset>
+      <legend><strong>Generator Selection</strong></legend>
+      Generator Module:
+      <select name="gen_module" id="gen_module"></select><br>
+      Generator Function:
+      <select name="gen_function" id="gen_function"></select><br>
+    </fieldset>
+    
     <br>
   
     <fieldset>
@@ -29,7 +39,9 @@
       Number of Nodes: <input name="nodes" type="number" required><br>
       Number of Procs: <input name="procs" type="number" required><br>
     </fieldset>
-  
+
+
+
     <br>
     <input type="submit" value="Generate Scripts">
   </form>
@@ -43,9 +55,9 @@
     <summary>Show Script</summary>
     <pre>{{ script }}</pre>
   </details>
-{% endif %}
+  {% endif %}
 
-{% if simf_script %}
+  {% if simf_script %}
   <h3>Generated forces_simf.py:</h3>
   {% if simf_link %}
     <p><a href="{{ simf_link }}" download>Download forces_simf.py</a></p>
@@ -54,6 +66,35 @@
     <summary>Show Script</summary>
     <pre>{{ simf_script }}</pre>
   </details>
-{% endif %}
+  {% endif %}
+
+  <script>
+    fetch("/generators.json")
+      .then(res => res.json())
+      .then(data => {
+        const moduleSelect = document.getElementById("gen_module");
+        const funcSelect = document.getElementById("gen_function");
+
+        for (const mod in data) {
+          const opt = document.createElement("option");
+          opt.value = mod;
+          opt.text = mod;
+          moduleSelect.appendChild(opt);
+        }
+
+        moduleSelect.addEventListener("change", () => {
+          funcSelect.innerHTML = "";
+          const funcs = data[moduleSelect.value] || [];
+          funcs.forEach(func => {
+            const opt = document.createElement("option");
+            opt.value = func;
+            opt.text = func;
+            funcSelect.appendChild(opt);
+          });
+        });
+
+        moduleSelect.dispatchEvent(new Event("change"));
+      });
+  </script>
 </body>
 </html>
