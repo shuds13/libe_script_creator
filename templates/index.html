@@ -4,7 +4,11 @@
   <title>libEnsemble Script Generator</title>
 </head>
 <body>
-  <h2>Generate libEnsemble Run Scripts</h2>
+    <h2>Generate libEnsemble Run Scripts</h2>
+    <div style="margin-left: 12px;">
+        <button type="button" onclick="fillSample()">Fill with Sample Data</button>
+      </div>
+      <br>
   <form method="post">
 
     <fieldset>
@@ -45,6 +49,11 @@
   </form>
 
   {% if script %}
+  {% if download_link and simf_link %}
+    <p>
+       <strong><a href="{{ download_link }}" download>Download All</a></strong>
+    </p>
+  {% endif %}
   <h3>Generated run_libe.py:</h3>
   {% if download_link %}
     <p><a href="{{ download_link }}" download>Download run_libe.py</a></p>
@@ -99,6 +108,27 @@
         moduleSelect.addEventListener("change", updateFuncOptions);
         updateFuncOptions();
       });
+      function fillSample() {
+  document.querySelector('[name="app_ref"]').value = "warpx";
+  document.querySelector('[name="num_workers"]').value = "4";
+  document.querySelector('[name="sim_app"]').value = "/home/user/warpx.x";
+  document.querySelector('[name="input_file"]').value = "warpx_input";
+  document.querySelector('[name="nodes"]').value = "2";
+  document.querySelector('[name="procs"]').value = "16";
+
+  const moduleSelect = document.getElementById("gen_module");
+  const funcSelect = document.getElementById("gen_function");
+  if (moduleSelect.options.length > 0) {
+    moduleSelect.selectedIndex = 0;
+    moduleSelect.dispatchEvent(new Event("change"));
+    setTimeout(() => {
+      if (funcSelect.options.length > 0) {
+        funcSelect.selectedIndex = 0;
+      }
+    }, 50);
+  }
+}
+
   </script>
 </body>
 </html>
