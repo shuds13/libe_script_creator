@@ -10,16 +10,24 @@
     <fieldset>
         <legend><strong>Application Reference</strong></legend>
         Application Reference Name (a string with no spaces – e.g., warpx):<br>
-        <input name="app_ref" type="text" required><br>
+        <input name="app_ref" type="text" required value="{{ request.form.app_ref }}"><br>
     </fieldset>
       
     <br>
 
     <fieldset>
         <legend><strong>Manager Settings</strong></legend>
-        Number of Workers: <input name="num_workers" type="number" required><br>
-        MPI App Full Path: <input name="sim_app" type="text" required><br>
-        Input Filename (e.g. forces_input): <input name="input_file" type="text" required><br>
+        Number of Workers: <input name="num_workers" type="number" required value="{{ request.form.num_workers }}"><br>
+        MPI App Full Path: <input name="sim_app" type="text" required value="{{ request.form.sim_app }}"><br>
+        Input Filename (e.g. forces_input): <input name="input_file" type="text" required value="{{ request.form.input_file }}"><br>
+    </fieldset>
+  
+    <br>
+  
+    <fieldset>
+      <legend><strong>Worker (simulation) Settings</strong></legend>
+      Number of Nodes: <input name="nodes" type="number" required value="{{ request.form.nodes }}"><br>
+      Number of Procs: <input name="procs" type="number" required value="{{ request.form.procs }}"><br>
     </fieldset>
 
     <br>
@@ -27,20 +35,10 @@
     <fieldset>
       <legend><strong>Generator Selection</strong></legend>
       Generator Module:
-      <select name="gen_module" id="gen_module"></select><br>
+      <select name="gen_module" id="gen_module" data-selected="{{ request.form.gen_module }}"></select><br>
       Generator Function:
-      <select name="gen_function" id="gen_function"></select><br>
+      <select name="gen_function" id="gen_function" data-selected="{{ request.form.gen_function }}"></select><br>
     </fieldset>
-    
-    <br>
-  
-    <fieldset>
-      <legend><strong>Worker (simulation) Settings</strong></legend>
-      Number of Nodes: <input name="nodes" type="number" required><br>
-      Number of Procs: <input name="procs" type="number" required><br>
-    </fieldset>
-
-
 
     <br>
     <input type="submit" value="Generate Scripts">
@@ -75,25 +73,31 @@
         const moduleSelect = document.getElementById("gen_module");
         const funcSelect = document.getElementById("gen_function");
 
+        const selectedModule = moduleSelect.getAttribute("data-selected");
+        const selectedFunc = funcSelect.getAttribute("data-selected");
+
         for (const mod in data) {
           const opt = document.createElement("option");
           opt.value = mod;
           opt.text = mod;
+          if (mod === selectedModule) opt.selected = true;
           moduleSelect.appendChild(opt);
         }
 
-        moduleSelect.addEventListener("change", () => {
+        const updateFuncOptions = () => {
           funcSelect.innerHTML = "";
           const funcs = data[moduleSelect.value] || [];
           funcs.forEach(func => {
             const opt = document.createElement("option");
             opt.value = func;
             opt.text = func;
+            if (func === selectedFunc) opt.selected = true;
             funcSelect.appendChild(opt);
           });
-        });
+        };
 
-        moduleSelect.dispatchEvent(new Event("change"));
+        moduleSelect.addEventListener("change", updateFuncOptions);
+        updateFuncOptions();
       });
   </script>
 </body>

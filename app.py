@@ -61,6 +61,7 @@ def index():
         simf_link = '/' + simf_output_path
 
     return render_template('index.html',
+                           request=request,
                            script=script,
                            download_link=download_link,
                            simf_script=simf_script,
