@@ -58,7 +58,7 @@
   {% if download_link %}
     <p><a href="{{ download_link }}" download>Download run_libe.py</a></p>
   {% endif %}
-  <details>
+  <details id="run_libe">
     <summary>Show Script</summary>
     <pre>{{ script }}</pre>
   </details>
@@ -69,7 +69,7 @@
   {% if simf_link %}
     <p><a href="{{ simf_link }}" download>Download forces_simf.py</a></p>
   {% endif %}
-  <details>
+  <details id="simf">
     <summary>Show Script</summary>
     <pre>{{ simf_script }}</pre>
   </details>
@@ -130,5 +130,28 @@
 }
 
   </script>
+<script>
+    // Re-open any details elements that were open before submission
+    const openIds = JSON.parse(localStorage.getItem("open_details_ids") || "[]");
+    openIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.open = true;
+    });
+  
+    // Track which ones are open
+    document.querySelectorAll("details").forEach(detail => {
+      detail.addEventListener("toggle", () => {
+        let ids = JSON.parse(localStorage.getItem("open_details_ids") || "[]");
+        if (detail.open && !ids.includes(detail.id)) {
+          ids.push(detail.id);
+        } else if (!detail.open) {
+          ids = ids.filter(x => x !== detail.id);
+        }
+        localStorage.setItem("open_details_ids", JSON.stringify(ids));
+      });
+    });
+  </script>
+  
+  
 </body>
 </html>
