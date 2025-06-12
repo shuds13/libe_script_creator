@@ -54,10 +54,8 @@
        <strong><a href="{{ download_link }}" download>Download All</a></strong>
     </p>
   {% endif %}
-  <h3>Generated run_libe.py:</h3>
-  {% if download_link %}
-    <p><a href="{{ download_link }}" download>Download run_libe.py</a></p>
-  {% endif %}
+  <p><strong>run_libe.py:</strong> <a href="{{ download_link }}" download>Download</a></p>
+
   <details id="run_libe">
     <summary>Show Script</summary>
     <pre>{{ script }}</pre>
@@ -65,10 +63,7 @@
   {% endif %}
 
   {% if simf_script %}
-  <h3>Generated forces_simf.py:</h3>
-  {% if simf_link %}
-    <p><a href="{{ simf_link }}" download>Download forces_simf.py</a></p>
-  {% endif %}
+  <p><strong>simf.py:</strong> <a href="{{ simf_link }}" download>Download</a></p>
   <details id="simf">
     <summary>Show Script</summary>
     <pre>{{ simf_script }}</pre>
