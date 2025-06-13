@@ -27,6 +27,8 @@ def index():
         input_file = request.form.get('input_file', '')
         gen_module = request.form.get('gen_module')
         gen_function = request.form.get('gen_function')
+        max_sims = request.form.get('max_sims', type=int)
+
 
         # Worker fields
         nodes = request.form.get('nodes', type=int)
@@ -41,7 +43,8 @@ def index():
                                  num_workers=num_workers,
                                  sim_app=sim_app,
                                  app_ref=app_ref,
-                                 input_file=input_file)
+                                 input_file=input_file,
+                                 max_sims=max_sims)
 
         os.makedirs('static', exist_ok=True)
         output_path = os.path.join('static', 'run_libe.py')

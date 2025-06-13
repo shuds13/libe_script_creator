@@ -57,7 +57,7 @@ if __name__ == "__main__":
         user={"async_return": False},
     )
 
-    ensemble.exit_criteria = ExitCriteria(sim_max=8)
+    ensemble.exit_criteria = ExitCriteria(sim_max={{ max_sims }})
 
     ensemble.add_random_streams()
     H, persis_info, flag = ensemble.run()

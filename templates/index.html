@@ -24,6 +24,8 @@
         Number of Workers: <input name="num_workers" type="number" required value="{{ request.form.num_workers }}"><br>
         MPI App Full Path: <input name="sim_app" type="text" required value="{{ request.form.sim_app }}"><br>
         Input Filename (e.g. forces_input): <input name="input_file" type="text" required value="{{ request.form.input_file }}"><br>
+        Max Simulations: <input name="max_sims" type="number" value="{{ request.form.max_sims }}"><br>
+
     </fieldset>
   
     <br>
@@ -108,6 +110,7 @@
   document.querySelector('[name="num_workers"]').value = "4";
   document.querySelector('[name="sim_app"]').value = "/home/user/warpx.x";
   document.querySelector('[name="input_file"]').value = "warpx_input";
+  document.querySelector('[name="max_sims"]').value = "8";
   document.querySelector('[name="nodes"]').value = "2";
   document.querySelector('[name="procs"]').value = "16";
 
