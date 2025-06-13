@@ -50,16 +50,15 @@ def run_{{ app_ref }}(H, persis_info, sim_specs, libE_info):
     # Try loading final results, set the sim's status
     try:
         data = np.loadtxt(statfile)
-        final_energy = data[-1]
+        f = data[-1]
         calc_status = WORKER_DONE
     except Exception:
-        final_energy = np.nan
+        f = np.nan
         calc_status = TASK_FAILED
 
-    # Define our output array,  populate with energy reading
     outspecs = sim_specs["out"]
     output = np.zeros(1, dtype=outspecs)
-    output["energy"][0] = final_energy
+    output["f"][0] = f
 
     # Return final information to worker, for reporting to manager
     return output, persis_info, calc_status

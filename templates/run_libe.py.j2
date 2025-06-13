@@ -36,7 +36,7 @@ if __name__ == "__main__":
     ensemble.sim_specs = SimSpecs(
         sim_f=run_{{ app_ref }},
         inputs=["x"],
-        outputs=[("energy", float)],
+        outputs=[("f", float)],
         user={"input_filename": input_file, "input_names": ["particles"]},
     )
 
@@ -60,7 +60,8 @@ if __name__ == "__main__":
     ensemble.exit_criteria = ExitCriteria(sim_max=8)
 
     ensemble.add_random_streams()
-    ensemble.run()
+    H, persis_info, flag = ensemble.run()
 
     if ensemble.is_manager:
-        print(f'Final energy checksum: {np.sum(ensemble.H["energy"])})
+        print("First 3:", ensemble.H[['x', 'f']][:3])
+        print("Last 3:", ensemble.H[['x', 'f']][-3:])
