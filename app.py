@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, send_file
 import jinja2
 import os
+import zipfile
 
 app = Flask(__name__)
 
@@ -14,6 +15,7 @@ def index():
     simf_script = None
     download_link = None
     simf_link = None
+    zip_link = None
 
     if request.method == 'POST':
 
@@ -60,12 +62,21 @@ def index():
             f.write(simf_script)
         simf_link = '/' + simf_output_path
 
+        # Create ZIP file with both scripts
+        zip_path = os.path.join('static', 'scripts.zip')
+        with zipfile.ZipFile(zip_path, 'w') as zipf:
+            zipf.write(output_path, arcname='run_libe.py')
+            zipf.write(simf_output_path, arcname='simf.py')
+
+        zip_link = '/' + zip_path
+
     return render_template('index.html',
                            request=request,
                            script=script,
                            download_link=download_link,
                            simf_script=simf_script,
-                           simf_link=simf_link)
+                           simf_link=simf_link,
+                           zip_link=zip_link)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
