@@ -42,14 +42,13 @@ def run_{{ app_ref }}(H, persis_info, sim_specs, libE_info):
                         )
 
     # Block until the task finishes
-    task.wait(timeout=60)
+    task.wait(timeout)
 
-    # Stat file to check for bad runs
-    statfile = "{{ app_ref }}.stat"
+    out_file = "{{ app_ref }}.stat"
 
-    # Try loading final results, set the sim's status
+    # Try loading final results and set the sim's status
     try:
-        data = np.loadtxt(statfile)
+        data = np.loadtxt(out_file)
         f = data[-1]
         calc_status = WORKER_DONE
     except Exception:
